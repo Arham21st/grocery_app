@@ -1,0 +1,22 @@
+import 'dart:convert';
+
+import 'package:http/http.dart' as http;
+
+
+class ApiService {
+  final String apiUrl;
+
+  ApiService(this.apiUrl);
+
+  Future<Map<String, dynamic>> getDataObject() async {
+    final response = await http.get(Uri.parse(apiUrl));
+
+    if (response.statusCode == 200) {
+      // Successful API call
+      return json.decode(response.body);
+    } else {
+      // Handle errors
+      throw Exception('Failed to load data');
+    }
+  }
+}
